@@ -1,0 +1,127 @@
+version: "3"
+
+services:
+  nats-server:
+    networks:
+      - app-network
+    image: nats:2.10.0-alpine
+    ports:
+      - "4222:4222"
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - ${API_GATEWAY_PORT}:${API_GATEWAY_PORT}
+    volumes:
+      - ./api-gateway/src:/usr/src/app/src
+    command: npm run start:dev
+    networks:
+      - app-network
+    environment:
+      - PORT=${API_GATEWAY_PORT}
+      - NATS_SERVERS=${NATS_SERVERS}
+
+  ms-scraping:
+    build: ./ms-scraping
+    volumes:
+      - ./ms-scraping/src:/usr/src/app/src
+    command: npm run start:dev
+    networks:
+      - app-network
+    environment:
+      - PORT=${SCRAPING_PORT}
+      - NATS_SERVERS=${NATS_SERVERS}
+      - PUPPETEER_EXECUTABLE_PATH=${PUPPETEER_EXECUTABLE_PATH}
+
+  ms-users:
+    depends_on:
+      - db-users
+    build: ./ms-users
+    volumes:
+      - ./ms-users/src:/usr/src/app/src
+    command: npm run start:dev
+    networks:
+      - app-network
+    environment:
+      - PORT=${USERS_PORT}
+      - NATS_SERVERS=${NATS_SERVERS}
+      - DATABASE_URL=${USERS_DATABASE_URL}
+
+  db-users:
+    container_name: users_database
+    image: mysql:8.4.1
+    restart: always
+    volumes:
+      - users-mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=users_db
+    networks:
+      - app-network
+
+
+  ms-notifications:
+    depends_on:
+      - db-notifications
+    build: ./ms-notifications
+    volumes:
+      - ./ms-notifications/src:/usr/src/app/src
+    command: npm run start:dev
+    networks:
+      - app-network
+    environment:
+      - PORT=${NOTIFICATIONS_PORT}
+      - NATS_SERVERS=${NATS_SERVERS}
+      - DATABASE_URL=${NOTIFICATIONS_DATABASE_URL}
+
+  db-notifications:
+    container_name: notifications_database
+    image: mysql:8.4.1
+    restart: always
+    volumes:
+      - notifications-mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=notifications_db
+    networks:
+      - app-network
+
+  ms-competitions:
+    depends_on:
+      - db-competitions
+    build: ./ms-competitions
+    volumes:
+      - ./ms-competitions/src:/usr/src/app/src
+    command: npm run start:dev
+    networks:
+      - app-network
+    environment:
+      - PORT=${COMPETITIONS_PORT}
+      - NATS_SERVERS=${NATS_SERVERS}
+      - DATABASE_URL=${COMPETITIONS_DATABASE_URL}
+
+  db-competitions:
+    container_name: competitions_database
+    image: mysql:8.4.1
+    restart: always
+    volumes:
+      - competitions-mysql-data:/var/lib/mysql
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=competitions_db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  users-mysql-data:
+  notifications-mysql-data:
+  competitions-mysql-data:
