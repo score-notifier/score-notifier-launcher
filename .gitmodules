@@ -1,0 +1,16 @@
+[submodule "api-gateway"]
+	path = api-gateway
+	url = https://github.com/score-notifier/api-gateway.git
+[submodule "ms-users"]
+	path = ms-users
+	url = https://github.com/score-notifier/ms-users.git
+[submodule "ms-notifications"]
+	path = ms-notifications
+	url = https://github.com/score-notifier/ms-notifications.git
+[submodule "ms-competitions"]
+	path = ms-competitions
+	url = https://github.com/score-notifier/ms-competitions.git
+[submodule "ms-scraping"]
+	path = ms-scraping
+	url = https://github.com/score-notifier/ms-scraping.git
+
