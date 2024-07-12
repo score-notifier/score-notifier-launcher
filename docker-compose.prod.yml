@@ -1,0 +1,95 @@
+services:
+  nats-server:
+    container_name: nats
+    image: nats:2.10.0-alpine
+    networks:
+      - transcendence
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile.prod
+    image: us-east1-docker.pkg.dev/score-notifier-429122/image-registry/api-gateway
+    networks:
+      - transcendence
+    ports:
+      - ${API_GATEWAY_PORT}:${API_GATEWAY_PORT}
+    environment:
+      - PORT=${API_GATEWAY_PORT}
+      - NATS_SERVERS=${NATS_SERVERS}
+
+  ms-competitions:
+    container_name: competitions_microservice
+    build:
+      context: ./ms-competitions
+      dockerfile: Dockerfile.prod
+    image: us-east1-docker.pkg.dev/score-notifier-429122/image-registry/ms-competitions
+    networks:
+      - transcendence
+    environment:
+      - PORT=${COMPETITIONS_PORT}
+      - NATS_SERVERS=${NATS_SERVERS}
+      - DATABASE_URL=${COMPETITIONS_DATABASE_URL}
+    depends_on:
+      db-competitions:
+        condition: service_healthy
+
+  db-competitions:
+    container_name: competitions_database
+    image: mysql:8.4.1
+    restart: always
+    volumes:
+      - competitions-mysql-data:/var/lib/mysql
+    ports:
+      - "3308:3306"
+    networks:
+      - transcendence
+    environment:
+      - MYSQL_DATABASE=competitions_db
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}" ]
+      interval: 1s
+      retries: 120
+
+  ms-users:
+    container_name: users_microservice
+    build:
+      context: ./ms-users
+      dockerfile: Dockerfile.prod
+    image: us-east1-docker.pkg.dev/score-notifier-429122/image-registry/ms-users
+    networks:
+      - transcendence
+    environment:
+      - PORT=${USERS_PORT}
+      - NATS_SERVERS=${NATS_SERVERS}
+      - DATABASE_URL=${USERS_DATABASE_URL}
+    depends_on:
+      db-users:
+        condition: service_healthy
+
+  db-users:
+    container_name: users_database
+    image: mysql:8.4.1
+    restart: always
+    volumes:
+      - users-mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - transcendence
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=users_db
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}" ]
+      interval: 1s
+      retries: 120
+
+volumes:
+  competitions-mysql-data:
+  users-mysql-data:
+
+networks:
+  transcendence:
