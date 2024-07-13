@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ms-users
+  name: ms-users
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-users
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ms-users
+    spec:
+      containers:
+      - image: us-east1-docker.pkg.dev/score-notifier-429122/image-registry/ms-users
+        name: ms-users
+        env:
+          - name: PORT
+            value: "3000"
+          - name: NATS_SERVERS
+            value: "nats://nats"
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: ms-users-secrets
+                key: database_url
+        resources: {}
+status: {}
