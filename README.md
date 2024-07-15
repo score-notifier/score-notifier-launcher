@@ -11,15 +11,6 @@
 If you want to update the references of the submodules, you can run the following
 command: `git submodule update --remote`.
 
-## Important Note
-
-When Docker Compose runs the services, the database services start up more slowly than the microservices themselves.
-Therefore, you need to wait until the databases are ready to accept connections before restarting the microservices.
-This issue occurs in development but should not happen in a production environment.
-
-With Kubernetes, the pods would continuously attempt to reconnect until the databases are fully operational, mitigating
-this issue.
-
 ## Architecture Overview
 
 ### API Gateway
