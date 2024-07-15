@@ -120,10 +120,10 @@ You can use the following requests to interact with the API endpoints:
 - [ ] Add missing endpoints.
 - [ ] Add unit tests.
 - [ ] Add integration tests.
-- [ ] Add CI/CD.
-- [ ] Add Kubernetes.
+- [X] Add CI/CD.
+- [X] Add Kubernetes.
 - [ ] Add monitoring.
-- [ ] Upload the project to a cloud provider.
-- [ ] Add production environment.
+- [X] Upload the project to a cloud provider.
+- [X] Add production environment.
 - [ ] Add Caching with Redis.
 - [ ] Add Authentication and Authorization.
