@@ -49,7 +49,7 @@ services:
       - MYSQL_DATABASE=competitions_db
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     healthcheck:
-      test: [ "CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}" ]
+      test: ["CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}"]
       interval: 1s
       retries: 120
 
@@ -83,7 +83,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=users_db
     healthcheck:
-      test: [ "CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}" ]
+      test: ["CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}"]
       interval: 1s
       retries: 120
 

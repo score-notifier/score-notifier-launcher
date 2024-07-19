@@ -13,4 +13,7 @@
 [submodule "ms-scraping"]
 	path = ms-scraping
 	url = https://github.com/score-notifier/ms-scraping.git
+[submodule "ms-stats"]
+	path = ms-stats
+	url = https://github.com/score-notifier/ms-stats.git
 
