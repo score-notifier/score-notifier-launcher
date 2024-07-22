@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "83539ac9-e707-4d0f-a019-806f7292ddac",
+		"name": "Competitions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3148647"
+	},
+	"item": [
+		{
+			"name": "Get Leagues",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/competitions/leagues",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"competitions",
+						"leagues"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Teams",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/competitions/leagues/1b0161e0-6bcc-47df-b6bc-ea9f20124abe/teams",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"competitions",
+						"leagues",
+						"1b0161e0-6bcc-47df-b6bc-ea9f20124abe",
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Matches",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/competitions/leagues/1db2e486-767b-4ebe-b259-d26ad9f5f122/teams/a09cfea7-e402-424e-ac92-6a8672f22a55/matches",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"competitions",
+						"leagues",
+						"1db2e486-767b-4ebe-b259-d26ad9f5f122",
+						"teams",
+						"a09cfea7-e402-424e-ac92-6a8672f22a55",
+						"matches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Upcoming Matches",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/competitions/leagues/1db2e486-767b-4ebe-b259-d26ad9f5f122/teams/10a03baa-a07b-4eee-9698-343570fc75dc/upcoming-matches",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"competitions",
+						"leagues",
+						"1db2e486-767b-4ebe-b259-d26ad9f5f122",
+						"teams",
+						"10a03baa-a07b-4eee-9698-343570fc75dc",
+						"upcoming-matches"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

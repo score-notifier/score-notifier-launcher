@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "5a0af169-3ccb-490a-b213-3582018dc8b4",
+		"name": "Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3148647"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Diego Raton\",\n    \"email\": \"d@salcedo.com\",\n    \"address\": \"Testing address\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subscribe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"6377ae16-657f-4edb-86b9-e0421748f0fe\",\n    \"teamId\": \"aab34884-3168-4fa4-9638-eee0ce17e01c\",\n    \"leagueId\": \"1b0161e0-6bcc-47df-b6bc-ea9f20124abe\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/subscribe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"subscribe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"7e8bd92d-d0b6-4819-8b6e-cd391dc0466d\",\n    \"teamId\": \"ef74a0dd-b0fe-4923-9a59-dbfc97e97906\",\n    \"leagueId\": \"15ed7a50-db72-4f13-afbc-af4268b492bc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Subscriptions",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"7e8bd92d-d0b6-4819-8b6e-cd391dc0466d\",\n    \"teamId\": \"ef74a0dd-b0fe-4923-9a59-dbfc97e97906\",\n    \"leagueId\": \"15ed7a50-db72-4f13-afbc-af4268b492bc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/6377ae16-657f-4edb-86b9-e0421748f0fe/subscriptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"6377ae16-657f-4edb-86b9-e0421748f0fe",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

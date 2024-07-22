@@ -1,0 +1,29 @@
+{
+	"info": {
+		"_postman_id": "c636e4b8-52ce-4d11-b922-b3b659e1e82e",
+		"name": "Health",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3148647"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

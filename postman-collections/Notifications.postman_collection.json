@@ -1,0 +1,31 @@
+{
+	"info": {
+		"_postman_id": "3b94f4a6-648b-43b3-8983-d3f314ecda3a",
+		"name": "Notifications",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3148647"
+	},
+	"item": [
+		{
+			"name": "Get User Notifications",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/notifications/6377ae16-657f-4edb-86b9-e0421748f0fe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"notifications",
+						"6377ae16-657f-4edb-86b9-e0421748f0fe"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

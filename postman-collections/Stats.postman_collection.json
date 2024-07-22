@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "09025665-9145-43c7-9702-fdb6e3ba5d7e",
+		"name": "Stats",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3148647"
+	},
+	"item": [
+		{
+			"name": "Get League Standings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/stats/leagues/6609894a-95b1-4ed7-b05e-947eb1a785fc/standings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"stats",
+						"leagues",
+						"6609894a-95b1-4ed7-b05e-947eb1a785fc",
+						"standings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Team Stats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/stats/teams/e4da37d1-5f8d-4829-8b5b-9c38656c0b54",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"stats",
+						"teams",
+						"e4da37d1-5f8d-4829-8b5b-9c38656c0b54"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
