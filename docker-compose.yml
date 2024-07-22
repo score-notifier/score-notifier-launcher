@@ -6,7 +6,17 @@ services:
     ports:
       - "4222:4222"
 
+  redis-server:
+    networks:
+      - app-network
+    image: redis:6.2
+    ports:
+      - "6379:6379"
+    command: [ "redis-server", "--appendonly", "yes" ]
+
   api-gateway:
+    depends_on:
+      - redis-server
     build: ./api-gateway
     ports:
       - ${API_GATEWAY_PORT}:${API_GATEWAY_PORT}
@@ -18,8 +28,13 @@ services:
     environment:
       - PORT=${API_GATEWAY_PORT}
       - NATS_SERVERS=${NATS_SERVERS}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_CACHE_TTL=${REDIS_CACHE_TTL}
 
   ms-scraping:
+    depends_on:
+      - redis-server
     build: ./ms-scraping
     volumes:
       - ./ms-scraping/src:/usr/src/app/src
@@ -30,6 +45,8 @@ services:
       - PORT=${SCRAPING_PORT}
       - NATS_SERVERS=${NATS_SERVERS}
       - PUPPETEER_EXECUTABLE_PATH=${PUPPETEER_EXECUTABLE_PATH}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
 
   ms-users:
     depends_on:
@@ -60,9 +77,11 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}"]
+      test: [ "CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}" ]
       interval: 1s
       retries: 120
+      timeout: 1s
+      start_period: 30s
 
   ms-notifications:
     depends_on:
@@ -71,7 +90,6 @@ services:
     build: ./ms-notifications
     volumes:
       - ./ms-notifications/src:/usr/src/app/src
-      - ./ms-notifications/prisma:/usr/src/app/prisma
     command: npm run start:dev
     networks:
       - app-network
@@ -94,9 +112,11 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}"]
+      test: [ "CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}" ]
       interval: 1s
       retries: 120
+      timeout: 1s
+      start_period: 30s
 
   ms-competitions:
     depends_on:
@@ -105,7 +125,6 @@ services:
     build: ./ms-competitions
     volumes:
       - ./ms-competitions/src:/usr/src/app/src
-      - ./ms-competitions/prisma:/usr/src/app/prisma
     command: npm run start:dev
     networks:
       - app-network
@@ -128,9 +147,11 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}"]
+      test: [ "CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}" ]
       interval: 1s
       retries: 120
+      timeout: 1s
+      start_period: 30s
 
   ms-stats:
     depends_on:
@@ -139,7 +160,6 @@ services:
     build: ./ms-stats
     volumes:
       - ./ms-stats/src:/usr/src/app/src
-      - ./ms-stats/prisma:/usr/src/app/prisma
     command: npm run start:dev
     networks:
       - app-network
@@ -162,9 +182,11 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}"]
+      test: [ "CMD-SHELL", "mysqladmin ping -uroot -p$${MYSQL_ROOT_PASSWORD}" ]
       interval: 1s
       retries: 120
+      timeout: 1s
+      start_period: 30s
 
 networks:
   app-network:
@@ -174,3 +196,5 @@ volumes:
   notifications-mysql-data:
   competitions-mysql-data:
   stats-mysql-data:
+  redis-data:
+    driver: local
