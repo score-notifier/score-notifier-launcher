@@ -9,6 +9,15 @@
 
 To update the submodule references, you can run the following command: `git submodule update --remote`.
 
+## Important Note
+
+When Docker Compose runs the services locally, the database services start up more slowly than the microservices themselves.
+Therefore, you need to wait until the databases are ready to accept connections before restarting the microservices.
+This issue occurs in development but should not happen in a production environment.
+
+With Kubernetes, the pods would continuously attempt to reconnect until the databases are fully operational, mitigating
+this issue.
+
 ## Run e2e tests
 
 For simplicity, I mock the NATS server and only have positive tests. Negative tests should be added to test the error handling in the future.
